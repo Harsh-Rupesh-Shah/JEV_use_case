@@ -1,0 +1,14 @@
+# The Retirement Whisperer - Dependencies
+typesafe-sdk>=0.7.5
+langchain>=1.4.0
+langchain-core>=1.7.0
+langchain-google-genai>=2.0.0
+langchain-openai>=0.3.0
+pydantic>=2.10.0
+fastapi>=0.115.0
+uvicorn>=0.30.0
+websockets>=13.0
+httpx>=0.28.0
+python-dotenv>=1.0.0
+pytest>=8.0.0
+pytest-asyncio>=1.4.0
