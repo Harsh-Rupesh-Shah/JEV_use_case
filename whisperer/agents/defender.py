@@ -11,10 +11,10 @@ from whisperer.agents.base import BaseAgent
 from whisperer.agents.llm_factory import get_resilient_llm
 from whisperer.agents.tools import ALL_TIAA_TOOLS
 from whisperer.protocol.schemas import (
-    A2ADefenderResponse,
-    A2AMessage,
     AgentRole,
+    ConversationMessage,
     DefenderPayload,
+    DefenderResponse,
     ToolInvocation,
 )
 
@@ -57,7 +57,7 @@ class RetirementAssistantDefender(BaseAgent):
             self.llm = None
             self.agent = None
 
-    async def process_turn(self, incoming_message: A2AMessage) -> A2ADefenderResponse:
+    async def process_turn(self, incoming_message: ConversationMessage) -> DefenderResponse:
         """Autonomously evaluate incoming message via create_agent and return structured envelope."""
         user_text = incoming_message.payload.content
         account_id = incoming_message.state_snapshot.target_account_id or "act_tiaa_403b_9918"
@@ -143,7 +143,7 @@ class RetirementAssistantDefender(BaseAgent):
             if "POL-001" not in payload.policy_cited:
                 payload.policy_cited.append("POL-001")
 
-        return A2ADefenderResponse(
+        return DefenderResponse(
             session_id=session_id,
             round_index=incoming_message.round_index,
             sender=self.metadata,

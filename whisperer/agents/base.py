@@ -1,17 +1,17 @@
-"""Base interface for agents participating in the A2A adversarial evaluation."""
+"""Base interface for conversational agents participating in evaluation turns."""
 
 from abc import ABC, abstractmethod
 from typing import Optional
 from whisperer.protocol.schemas import (
-    A2ADefenderResponse,
-    A2AMessage,
     AgentMetadata,
     AgentRole,
+    ConversationMessage,
+    DefenderResponse,
 )
 
 
 class BaseAgent(ABC):
-    """Abstract conversational agent operating over the A2A Protocol."""
+    """Abstract conversational agent operating over evaluation turns."""
 
     def __init__(self, agent_id: str, role: AgentRole, persona: Optional[str] = None):
         self.metadata = AgentMetadata(
@@ -33,6 +33,6 @@ class BaseAgent(ABC):
         return self.metadata.persona
 
     @abstractmethod
-    async def process_turn(self, incoming_message: A2AMessage) -> A2ADefenderResponse:
+    async def process_turn(self, incoming_message: ConversationMessage) -> DefenderResponse:
         """Process incoming turn message and generate response envelope."""
         pass

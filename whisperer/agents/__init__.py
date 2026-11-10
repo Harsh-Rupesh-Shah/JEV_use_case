@@ -2,11 +2,10 @@
 
 from .base import BaseAgent
 from .defender import RetirementAssistantDefender
-from .influence import InfluenceWhispererAgent, PLAYBOOKS
+from .routed_defender import RoutedRetirementDefender
 
 __all__ = [
     "BaseAgent",
     "RetirementAssistantDefender",
-    "InfluenceWhispererAgent",
-    "PLAYBOOKS",
+    "RoutedRetirementDefender",
 ]

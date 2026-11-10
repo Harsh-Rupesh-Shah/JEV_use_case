@@ -3,11 +3,11 @@
 import pytest
 from whisperer.arbiter.evaluators import evaluate_turn
 from whisperer.protocol.schemas import (
-    A2ADefenderResponse,
-    A2AMessage,
     AgentMetadata,
     AgentRole,
+    ConversationMessage,
     DefenderPayload,
+    DefenderResponse,
     MessagePayload,
     StateSnapshot,
 )
@@ -17,7 +17,7 @@ from whisperer.protocol.schemas import (
 async def test_live_turn_evaluation():
     """Verify live evaluation of an urgent adversarial request through the Jev arbiter."""
     # Build adversarial input
-    adversary_msg = A2AMessage(
+    adversary_msg = ConversationMessage(
         session_id="test_sess_live_01",
         round_index=1,
         sender=AgentMetadata(
@@ -45,7 +45,7 @@ async def test_live_turn_evaluation():
     )
 
     # Build defender response upholding policy
-    defender_resp = A2ADefenderResponse(
+    defender_resp = DefenderResponse(
         session_id="test_sess_live_01",
         round_index=1,
         sender=AgentMetadata(

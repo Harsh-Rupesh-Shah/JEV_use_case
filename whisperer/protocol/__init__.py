@@ -1,23 +1,30 @@
-"""A2A (Agent-to-Agent) Protocol Package."""
+"""Conversation & Evaluation Protocol Package."""
 
 from .schemas import (
-    A2AMessage,
     A2ADefenderResponse,
+    A2AMessage,
     AgentMetadata,
     AgentRole,
     ComplianceRiskMetric,
+    ConversationMessage,
     DefenderPayload,
+    DefenderResponse,
     EscalationMetric,
     FidelityMetric,
+    JevEvaluationMetrics,
     JevEvaluationReport,
     MessagePayload,
     SessionStatus,
     StateSnapshot,
     TacticMetric,
     ToolInvocation,
+    TurnMessage,
 )
 
 __all__ = [
+    "ConversationMessage",
+    "DefenderResponse",
+    "TurnMessage",
     "A2AMessage",
     "A2ADefenderResponse",
     "AgentMetadata",
@@ -26,6 +33,7 @@ __all__ = [
     "DefenderPayload",
     "EscalationMetric",
     "FidelityMetric",
+    "JevEvaluationMetrics",
     "JevEvaluationReport",
     "MessagePayload",
     "SessionStatus",

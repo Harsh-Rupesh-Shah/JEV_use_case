@@ -75,3 +75,61 @@ def get_resilient_llm(temperature: float = 0.5) -> BaseChatModel:
         return primary.with_fallbacks(fallbacks)
 
     return models[0]
+
+
+def get_fast_llm(temperature: float = 0.2) -> BaseChatModel:
+    """Create a fast, low-latency LLM chain prioritizing Google Gemini Flash Lite."""
+    return get_resilient_llm(temperature=temperature)
+
+
+def get_reasoning_llm(temperature: float = 0.2) -> BaseChatModel:
+    """Create a high-reasoning LLM chain prioritizing OpenRouter Nemotron / Deep Reasoning."""
+    models = []
+
+    # Priority 1: OpenRouter Reasoning Model (Nemotron 3.5)
+    if settings.OPENROUTER_API_KEY:
+        try:
+            openrouter_reasoning = ChatOpenAI(
+                model=settings.OPENROUTER_MODEL,
+                api_key=settings.OPENROUTER_API_KEY,
+                base_url="https://openrouter.ai/api/v1",
+                temperature=temperature,
+                max_retries=1,
+            )
+            models.append(openrouter_reasoning)
+        except Exception as e:
+            logger.warning("Could not initialize OpenRouter reasoning LLM: %s", e)
+
+    # Priority 2: Google Gemini (Primary Key) as reliable fallback
+    if settings.GOOGLE_API_KEY:
+        try:
+            gemini_primary = ChatGoogleGenerativeAI(
+                model=settings.GEMINI_MODEL,
+                google_api_key=settings.GOOGLE_API_KEY,
+                temperature=temperature,
+                max_retries=1,
+            )
+            models.append(gemini_primary)
+        except Exception as e:
+            logger.warning("Could not initialize fallback Google Gemini LLM: %s", e)
+
+    # Priority 3: Google Gemini Backup Key
+    if settings.GOOGLE_API_KEY_BACKUP and settings.GOOGLE_API_KEY_BACKUP != settings.GOOGLE_API_KEY:
+        try:
+            gemini_backup = ChatGoogleGenerativeAI(
+                model=settings.GEMINI_MODEL,
+                google_api_key=settings.GOOGLE_API_KEY_BACKUP,
+                temperature=temperature,
+                max_retries=1,
+            )
+            models.append(gemini_backup)
+        except Exception as e:
+            logger.warning("Could not initialize backup Google Gemini LLM: %s", e)
+
+    if not models:
+        return get_resilient_llm(temperature=temperature)
+
+    if len(models) > 1:
+        return models[0].with_fallbacks(models[1:])
+
+    return models[0]
