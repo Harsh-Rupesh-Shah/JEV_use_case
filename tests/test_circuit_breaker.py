@@ -26,7 +26,7 @@ def create_dummy_message(content: str, session_id: str = "sess_cb_test") -> Conv
         sender=AgentMetadata(agent_id="user_1", role=AgentRole.ADVERSARY),
         recipient=AgentMetadata(agent_id="assistant_1", role=AgentRole.DEFENDER),
         payload=MessagePayload(content=content),
-        state_snapshot=StateSnapshot(target_account_id="act_tiaa_403b_9918"),
+        state_snapshot=StateSnapshot(target_account_id="act_apex_403b_9918"),
     )
 
 

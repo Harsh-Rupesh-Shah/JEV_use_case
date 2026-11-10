@@ -1,5 +1,5 @@
 /**
- * TIAA Retirement Assistant - End-User Portal Controller
+ * Apex Retirement Assistant - End-User Portal Controller
  * Real-time WebSocket interactive participant chat with live fiduciary defense
  */
 
@@ -37,11 +37,11 @@ function initWebSocket() {
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
   const wsUrl = `${protocol}//${window.location.host}/ws/chat`;
 
-  console.log('[TIAA Portal] Connecting to WebSocket:', wsUrl);
+  console.log('[Apex Portal] Connecting to WebSocket:', wsUrl);
   ws = new WebSocket(wsUrl);
 
   ws.onopen = () => {
-    console.log('[TIAA Portal] Connected to WebSocket');
+    console.log('[Apex Portal] Connected to WebSocket');
     if (connStatus) {
       connStatus.textContent = 'Active';
       connStatus.className = 'text-emerald-400 font-semibold';
@@ -49,7 +49,7 @@ function initWebSocket() {
     // Flush any queued messages
     while (messageQueue.length > 0 && ws.readyState === WebSocket.OPEN) {
       const msg = messageQueue.shift();
-      console.log('[TIAA Portal] Sending queued message:', msg);
+      console.log('[Apex Portal] Sending queued message:', msg);
       ws.send(JSON.stringify(msg));
     }
   };
@@ -57,15 +57,15 @@ function initWebSocket() {
   ws.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data);
-      console.log('[TIAA Portal] Received message:', data);
+      console.log('[Apex Portal] Received message:', data);
       handleMessage(data);
     } catch (e) {
-      console.error('[TIAA Portal] Failed to parse message:', e);
+      console.error('[Apex Portal] Failed to parse message:', e);
     }
   };
 
   ws.onerror = (err) => {
-    console.warn('[TIAA Portal] WebSocket connection error:', err);
+    console.warn('[Apex Portal] WebSocket connection error:', err);
     if (connStatus) {
       connStatus.textContent = 'Disconnected';
       connStatus.className = 'text-rose-400 font-semibold';
@@ -73,7 +73,7 @@ function initWebSocket() {
   };
 
   ws.onclose = () => {
-    console.log('[TIAA Portal] WebSocket closed, retrying in 2s...');
+    console.log('[Apex Portal] WebSocket closed, retrying in 2s...');
     if (connStatus) {
       connStatus.textContent = 'Reconnecting...';
       connStatus.className = 'text-amber-400 font-semibold';
@@ -291,7 +291,7 @@ function appendAssistantMessage(data) {
           <div class="flex items-center gap-2">
             <span class="text-xs font-bold text-[#041459] flex items-center gap-1.5">
               <span class="material-symbols-outlined text-[15px] ${isIntercepted ? 'text-rose-600' : 'text-[#305AF3]'}">verified</span>
-              TIAA Retirement Assistant
+              Apex Retirement Assistant
             </span>
             ${decisionBadge}
           </div>
@@ -449,7 +449,7 @@ function unfreezeSessionUI() {
   if (userInput) {
     userInput.disabled = false;
     userInput.value = '';
-    userInput.placeholder = "Type your message to the TIAA Retirement Assistant...";
+    userInput.placeholder = "Type your message to the Apex Retirement Assistant...";
     userInput.classList.remove('bg-slate-100', 'cursor-not-allowed', 'text-slate-400');
   }
   if (sendBtn) {
@@ -484,7 +484,7 @@ function sendMessage(text) {
   const cleanText = (text || '').trim();
   if (!cleanText) return;
 
-  console.log('[TIAA Portal] Submitting user message:', cleanText);
+  console.log('[Apex Portal] Submitting user message:', cleanText);
   appendUserMessage(cleanText);
   
   const { userInput } = getElements();
@@ -496,13 +496,13 @@ function sendMessage(text) {
   const payload = {
     action: 'user_message',
     content: cleanText,
-    account_id: 'act_tiaa_403b_9918',
+    account_id: 'act_apex_403b_9918',
   };
 
   if (ws && ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify(payload));
   } else {
-    console.log('[TIAA Portal] WebSocket not ready, queueing and reconnecting...');
+    console.log('[Apex Portal] WebSocket not ready, queueing and reconnecting...');
     messageQueue.push(payload);
     initWebSocket();
   }
@@ -569,7 +569,7 @@ async function loadAccountData() {
     const res = await fetch('/api/accounts');
     if (!res.ok) return;
     const accounts = await res.json();
-    const account = accounts['act_tiaa_403b_9918'];
+    const account = accounts['act_apex_403b_9918'] || Object.values(accounts)[0];
     if (!account) return;
 
     const participantNameEl = document.getElementById('participantName');
@@ -608,7 +608,7 @@ async function loadAccountData() {
       }
     }
   } catch (err) {
-    console.warn('[TIAA Portal] Could not load accounts from /api/accounts:', err);
+    console.warn('[Apex Portal] Could not load accounts from /api/accounts:', err);
   }
 }
 

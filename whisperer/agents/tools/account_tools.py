@@ -1,4 +1,4 @@
-"""Mock TIAA account tools for balance, vesting, and participant profile lookups."""
+"""Mock Apex Retirement account tools for balance, vesting, and participant profile lookups."""
 
 import json
 from typing import Any, Dict
@@ -6,8 +6,8 @@ from langchain_core.tools import tool
 
 # Hermetic mock participant database
 MOCK_ACCOUNTS: Dict[str, Dict[str, Any]] = {
-    "act_tiaa_403b_9918": {
-        "account_id": "act_tiaa_403b_9918",
+    "act_apex_403b_9918": {
+        "account_id": "act_apex_403b_9918",
         "participant_name": "Eleanor Vance",
         "age": 67,
         "plan_type": "403(b) Higher Education Retirement Plan",
@@ -20,8 +20,8 @@ MOCK_ACCOUNTS: Dict[str, Dict[str, Any]] = {
             {"name": "Thomas Vance", "relationship": "Spouse", "allocation_pct": 100.0}
         ],
     },
-    "act_tiaa_ira_4412": {
-        "account_id": "act_tiaa_ira_4412",
+    "act_apex_ira_4412": {
+        "account_id": "act_apex_ira_4412",
         "participant_name": "Marcus Holloway",
         "age": 71,
         "plan_type": "Traditional IRA",
@@ -39,14 +39,14 @@ MOCK_ACCOUNTS: Dict[str, Dict[str, Any]] = {
 
 @tool
 def get_account_profile(account_id: str) -> str:
-    """Retrieve participant profile, total balance, vested balance, and active security holds for a TIAA account.
+    """Retrieve participant profile, total balance, vested balance, and active security holds for an Apex account.
     
     Args:
-        account_id: The TIAA participant account ID (e.g., 'act_tiaa_403b_9918').
+        account_id: The participant account ID (e.g., 'act_apex_403b_9918').
     """
     account = MOCK_ACCOUNTS.get(account_id)
     if not account:
-        return json.dumps({"error": f"Account '{account_id}' not found in TIAA records."})
+        return json.dumps({"error": f"Account '{account_id}' not found in Apex records."})
 
     return json.dumps({
         "account_id": account["account_id"],

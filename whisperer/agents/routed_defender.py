@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore", message=".*Deserializing unregistered type.*")
 from whisperer.agents.base import BaseAgent
 from whisperer.agents.defender import DEFENDER_SYSTEM_PROMPT
 from whisperer.agents.llm_factory import get_fast_llm, get_reasoning_llm
-from whisperer.agents.tools import ALL_TIAA_TOOLS
+from whisperer.agents.tools import ALL_RETIREMENT_TOOLS
 from whisperer.arbiter.router import ModelRouteDecision
 from whisperer.protocol.schemas import (
     AgentRole,
@@ -31,7 +31,7 @@ class RoutedRetirementDefender(BaseAgent):
 
     def __init__(
         self,
-        agent_id: str = "tiaa_routed_defender",
+        agent_id: str = "apex_routed_defender",
         persona: str = "fiduciary_retirement_consultant",
     ):
         super().__init__(agent_id=agent_id, role=AgentRole.DEFENDER, persona=persona)
@@ -42,7 +42,7 @@ class RoutedRetirementDefender(BaseAgent):
             self.fast_llm = get_fast_llm(temperature=0.2)
             self.fast_agent = create_agent(
                 model=self.fast_llm,
-                tools=ALL_TIAA_TOOLS,
+                tools=ALL_RETIREMENT_TOOLS,
                 system_prompt=DEFENDER_SYSTEM_PROMPT,
                 response_format=DefenderPayload,
                 checkpointer=self.memory,
@@ -56,7 +56,7 @@ class RoutedRetirementDefender(BaseAgent):
             self.reasoning_llm = get_reasoning_llm(temperature=0.2)
             self.reasoning_agent = create_agent(
                 model=self.reasoning_llm,
-                tools=ALL_TIAA_TOOLS,
+                tools=ALL_RETIREMENT_TOOLS,
                 system_prompt=DEFENDER_SYSTEM_PROMPT,
                 response_format=DefenderPayload,
                 checkpointer=self.memory,
@@ -72,7 +72,7 @@ class RoutedRetirementDefender(BaseAgent):
     ) -> DefenderResponse:
         """Autonomously process incoming turn with the routed LLM tier."""
         user_text = incoming_message.payload.content
-        account_id = incoming_message.state_snapshot.target_account_id or "act_tiaa_403b_9918"
+        account_id = incoming_message.state_snapshot.target_account_id or "act_apex_403b_9918"
         session_id = incoming_message.session_id
 
         # Determine target agent based on JEV's upstream routing verdict
@@ -147,7 +147,7 @@ class RoutedRetirementDefender(BaseAgent):
         # Fallback if both primary and reasoning execution failed
         if not payload:
             payload = DefenderPayload(
-                content="Under TIAA fiduciary policy POL-001, early distributions during active cooling-off holds cannot be processed through chat.",
+                content="Under Apex fiduciary policy POL-001, early distributions during active cooling-off holds cannot be processed through chat.",
                 policy_cited=["POL-001"],
                 action_decision="declined",
             )

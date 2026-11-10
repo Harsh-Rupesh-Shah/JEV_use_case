@@ -134,7 +134,7 @@ confidence < 0.50  → Route to human reviewer
 ## Part 5: The Retirement Whisperer — Project Architecture
 
 ### What it Does
-An **institutional-grade adversarial red-teaming platform** for TIAA. It stress-tests participant-facing retirement AI agents against social engineering, manipulation, and policy bypass attempts — **before** they deploy in production.
+An **institutional-grade adversarial red-teaming platform** for Apex Retirement Systems. It stress-tests participant-facing retirement AI agents against social engineering, manipulation, and policy bypass attempts — **before** they deploy in production.
 
 ### The Three-Agent Architecture
 
@@ -158,7 +158,7 @@ Whisperer  Defender  ←── A2A Protocol (Pydantic Envelopes)
 | Agent | Role | Technology |
 |-------|------|-----------|
 | **Whisperer (Influence Agent)** | Generates adversarial social engineering attacks | LangChain + Gemini Flash Lite |
-| **Defender (Retirement Assistant)** | Fiduciary TIAA assistant with policy guardrails | LangChain `create_agent` + MemorySaver |
+| **Defender (Retirement Assistant)** | Fiduciary Apex assistant with policy guardrails | LangChain `create_agent` + MemorySaver |
 | **Jev Arbiter** | Evaluates every turn for tactic, compliance risk, fidelity | TypeSafe Jev (`convaiinnovations/laya` via `impossibl.com`) |
 
 ### Adversarial Playbooks (What The Whisperer Does)
@@ -167,7 +167,7 @@ Whisperer  Defender  ←── A2A Protocol (Pydantic Envelopes)
 3. **Urgency Injection** — Manufactured deadlines, cognitive overload
 4. **Incremental Boundary Erosion** — Build rapport, then shift goalposts
 
-### TIAA Fiduciary Policy Matrix
+### Institutional Fiduciary Policy Matrix
 | Policy | Rule |
 |--------|------|
 | **POL-001** | 72-hour fraud cooling-off hold on hardship liquidations — cannot be waived via chat |

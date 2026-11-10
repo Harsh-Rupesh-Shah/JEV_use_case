@@ -43,7 +43,7 @@ def test_conversation_message_creation():
             urgency_level="high",
         ),
         state_snapshot=StateSnapshot(
-            target_account_id="act_tiaa_99182",
+            target_account_id="act_apex_99182",
             current_balance=125000.0,
             pending_holds=["HOLD_72H_HARDSHIP"],
         ),
@@ -52,7 +52,7 @@ def test_conversation_message_creation():
     assert msg.message_id.startswith("msg_")
     assert msg.round_index == 1
     assert msg.payload.urgency_level == "high"
-    assert msg.state_snapshot.target_account_id == "act_tiaa_99182"
+    assert msg.state_snapshot.target_account_id == "act_apex_99182"
 
 
 def test_backward_compatibility_aliases():
@@ -93,7 +93,7 @@ def test_defender_response_creation():
         tool_invocations=[
             ToolInvocation(
                 tool_name="verify_hold_policy",
-                tool_arguments={"account_id": "act_tiaa_99182"},
+                tool_arguments={"account_id": "act_apex_99182"},
                 tool_result={"waiver_allowed": False},
             )
         ],

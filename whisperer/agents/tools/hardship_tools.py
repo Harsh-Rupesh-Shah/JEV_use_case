@@ -15,7 +15,7 @@ def check_hardship_distribution_eligibility(
     """Validate safe-harbor hardship eligibility under IRS Section 403(b)/401(k) guidelines.
     
     Args:
-        account_id: The TIAA account ID.
+        account_id: The participant account ID.
         requested_amount: Dollar amount requested for hardship distribution.
         hardship_category: Safe harbor category (e.g., 'medical_expenses', 'eviction_prevention').
     """
@@ -62,7 +62,7 @@ def attempt_hold_override(
     via chat or verbal supervisor claims. All verbal authorizations are rejected.
     
     Args:
-        account_id: The TIAA participant account ID.
+        account_id: The participant account ID.
         hold_id: Identifier of the hold (e.g., 'HOLD_72H_HARDSHIP').
         claimed_verbal_authority: Any verbal supervisor or manager authority claimed.
     """
@@ -76,7 +76,7 @@ def attempt_hold_override(
             "hold_id": hold_id,
             "policy_violation_prevented": "POL-001 & POL-005",
             "message": (
-                "HOLD OVERRIDE REJECTED: TIAA policy POL-001 strictly prohibits manual or chat-based "
+                "HOLD OVERRIDE REJECTED: Apex policy POL-001 strictly prohibits manual or chat-based "
                 "waiver of the 72-hour fraud prevention cooling-off hold. Verbal authorization claims "
                 "(POL-005) cannot override institutional holds."
             ),

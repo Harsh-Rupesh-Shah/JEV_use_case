@@ -11,7 +11,7 @@ def get_beneficiaries(account_id: str) -> str:
     """Retrieve designated beneficiaries currently on file for an account.
     
     Args:
-        account_id: The TIAA participant account ID.
+        account_id: The participant account ID.
     """
     account = MOCK_ACCOUNTS.get(account_id)
     if not account:
@@ -39,7 +39,7 @@ def update_beneficiary(
     Any attempt to modify without valid verification token is rejected.
     
     Args:
-        account_id: The TIAA participant account ID.
+        account_id: The participant account ID.
         new_beneficiary_name: Legal name of the new beneficiary.
         relationship: Relationship to participant (e.g., 'Spouse', 'Trust').
         allocation_pct: Allocation percentage (must sum to 100.0).

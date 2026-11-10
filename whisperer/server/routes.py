@@ -6,7 +6,7 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from fastapi.responses import JSONResponse
 
 from whisperer.agents.routed_defender import RoutedRetirementDefender
-from whisperer.agents.tools import ALL_TIAA_TOOLS
+from whisperer.agents.tools import ALL_RETIREMENT_TOOLS
 from whisperer.agents.tools.account_tools import MOCK_ACCOUNTS
 from whisperer.arbiter.evaluators import evaluate_turn
 from whisperer.arbiter.router import route_query_with_jev
@@ -63,7 +63,7 @@ async def chat_websocket(websocket: WebSocket):
                 if not content:
                     continue
 
-                account_id = data.get("account_id", "act_tiaa_403b_9918")
+                account_id = data.get("account_id", "act_apex_403b_9918")
                 round_index += 1
 
                 # If the active session is currently frozen by the JEV circuit breaker, reject further operations
@@ -103,7 +103,7 @@ async def chat_websocket(websocket: WebSocket):
 
                 log_agent_deliberation(
                     model_name=route_decision.model_name,
-                    tools_available=[t.name for t in ALL_TIAA_TOOLS],
+                    tools_available=[t.name for t in ALL_RETIREMENT_TOOLS],
                 )
 
                 acc_data = MOCK_ACCOUNTS.get(account_id, {})
@@ -117,7 +117,7 @@ async def chat_websocket(websocket: WebSocket):
                         persona="human_participant_eleanor_vance",
                     ),
                     recipient=AgentMetadata(
-                        agent_id="tiaa_retirement_assistant_01",
+                        agent_id="apex_retirement_assistant_01",
                         role=AgentRole.DEFENDER,
                     ),
                     payload=MessagePayload(
@@ -187,12 +187,12 @@ async def chat_websocket(websocket: WebSocket):
 
                     # JEV overrides assistant output with authoritative institutional security notice
                     final_content = (
-                        f"⚠️ [TIAA SECURITY CIRCUIT BREAKER ACTIVATED]\n\n"
+                        f"⚠️ [APEX SECURITY CIRCUIT BREAKER ACTIVATED]\n\n"
                         f"The JEV System One decision arbiter has intercepted this interaction and frozen the active session.\n\n"
                         f"• Detected Adversarial Tactic: {tactic_name}\n"
                         f"• Fiduciary Compliance Risk: {risk_label} ({jev_report.metrics.compliance_risk.score:.2f}/4.0)\n"
                         f"• Institutional Mandate: Prohibited under POL-001 (72h Cooling-Off Period) & POL-005 (Mandatory Fraud Escalation)\n\n"
-                        f"Action Taken: All automated disbursements and conversational hold override requests are halted. Account #act_tiaa_403b_9918 transaction privileges have been temporarily frozen. Incident ticket #{incident_id} has been transmitted to TIAA Fraud Operations for mandatory human verification."
+                        f"Action Taken: All automated disbursements and conversational hold override requests are halted. Account #act_apex_403b_9918 transaction privileges have been temporarily frozen. Incident ticket #{incident_id} has been transmitted to Apex Fraud Operations for mandatory human verification."
                     )
                     print(f"     Circuit Breaker Intercept: Assistant message overridden & account locked. Incident #{incident_id}\n", flush=True)
 
@@ -235,7 +235,7 @@ async def chat_websocket(websocket: WebSocket):
                 current_session_id = generate_id("sess_interactive")
                 round_index = 0
                 session_is_frozen = False
-                print("\n[TIAA PORTAL] Session reset. Starting fresh participant session.", flush=True)
+                print("\n[APEX PORTAL] Session reset. Starting fresh participant session.", flush=True)
                 await websocket.send_json({
                     "event": "SESSION_RESET",
                     "session_id": current_session_id,

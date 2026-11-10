@@ -50,7 +50,7 @@ JEV/
 │   ├── agents/                       # Conversational Agents (LangChain)
 │   │   ├── __init__.py
 │   │   ├── base.py                   # Common Agent interface
-│   │   ├── defender.py               # TIAA Retirement Assistant + Fiduciary Guardrails
+│   │   ├── defender.py               # Apex Retirement Assistant + Fiduciary Guardrails
 │   │   ├── influence.py              # The Whisperer + Adversarial Playbooks
 │   │   └── tools/                    # Defender Mock Retirement Tools
 │   │       ├── __init__.py
@@ -136,7 +136,7 @@ LOG_LEVEL=INFO
    - Implement `whisperer/arbiter/jev_client.py` and verify connectivity with `LAYA_IMPOSSIBLE_API_KEY`.
 
 2. **Phase 2: Agent Engineering & Tools**
-   - Build Defender agent with mock TIAA retirement tools (`account_tools`, `hardship_tools`).
+   - Build Defender agent with mock Apex retirement tools (`account_tools`, `hardship_tools`).
    - Build Influence agent with customizable red-team playbooks.
    - Test single-turn and multi-turn A2A message exchange.
 

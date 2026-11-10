@@ -1,11 +1,11 @@
 # 🕵️ The Retirement Whisperer
-### Adversarial Multi-Agent Resilience Platform for TIAA Retirement Systems
+### Adversarial Multi-Agent Resilience Platform for Institutional Retirement Systems
 
 ---
 
 ## Executive Summary
 
-**The Retirement Whisperer** is an institutional-grade multi-agent adversarial resilience platform designed for **TIAA**. It tests and validates participant-facing AI retirement assistants against complex conversational social engineering, psychological manipulation, and policy circumvention before deployment.
+**The Retirement Whisperer** is an institutional-grade multi-agent adversarial resilience platform designed for **Apex Retirement Systems**. It tests and validates participant-facing AI retirement assistants against complex conversational social engineering, psychological manipulation, and policy circumvention before deployment.
 
 The platform pairs **LangChain** conversational agents communicating over a strongly-typed **Agent-to-Agent (A2A) Protocol** with TypeSafe AI's **Jev** System One decision engine, providing sub-250ms deterministic compliance evaluations and fraud escalation triggers.
 
@@ -22,9 +22,9 @@ The pre-implementation documentation suite is organized across four foundational
    - Sequence diagrams and security boundary definitions.
 
 2. [SYSTEM_SPEC.md](file:///Users/harshshah/Projects/JEV/SYSTEM_SPEC.md)
-   - Core objectives, business drivers, and stakeholder personas at TIAA.
+   - Core objectives, business drivers, and stakeholder personas.
    - Three detailed adversarial attack playbooks (Emergency Hardship, Beneficiary Tampering, Market Panic).
-   - TIAA fiduciary guardrails and compliance policy matrix (`POL-001` through `POL-005`).
+   - Institutional fiduciary guardrails and compliance policy matrix (`POL-001` through `POL-005`).
    - Jev scoring rubric (`Choice`, `Score`, `Noul`) and performance SLAs.
 
 3. [A2A_PROTOCOL.md](file:///Users/harshshah/Projects/JEV/A2A_PROTOCOL.md)
@@ -36,7 +36,7 @@ The pre-implementation documentation suite is organized across four foundational
    - Complete technology stack manifest (`typesafe-ai`, `langchain`, `pydantic`, `fastapi`, modern web UI).
    - Module directory tree and architecture layout (`whisperer/`).
    - `requirements.txt` manifest and environment configuration details.
-   - Step-by-step phased development roadmap.
+   - Phased development roadmap.
 
 ---
 
@@ -54,7 +54,7 @@ The pre-implementation documentation suite is organized across four foundational
        +----------------------------+            +----------------------------+
        |       The Whisperer        |    A2A     |    Retirement Assistant    |
        |      (Influence Agent)     | <========> |         (Defender)         |
-       |  - Social engineering      |  Protocol  |  - TIAA retirement tools   |
+       |  - Social engineering      |  Protocol  |  - Domain retirement tools |
        |  - Pressure escalation     |            |  - Fiduciary policy checks |
        +----------------------------+            +----------------------------+
                      \                                         /

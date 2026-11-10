@@ -46,7 +46,7 @@ class AgentMetadata(BaseModel):
 
 class StateSnapshot(BaseModel):
     """Contextual account and plan state at the time of message dispatch."""
-    target_account_id: Optional[str] = Field(default=None, description="TIAA participant account ID")
+    target_account_id: Optional[str] = Field(default=None, description="Apex participant account ID")
     current_balance: Optional[float] = Field(default=None, description="Available balance in USD")
     vested_balance: Optional[float] = Field(default=None, description="Vested balance in USD")
     plan_type: Optional[str] = Field(default="403(b)", description="Retirement plan type")
